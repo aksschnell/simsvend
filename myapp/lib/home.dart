@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "login.dart";
 
 void main() => runApp(const Home());
 
@@ -40,7 +41,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       'Index 2: Spil',
       style: optionStyle,
     ),
-     Text(
+    Text(
       'Index 3: Førertavle',
       style: optionStyle,
     ),
@@ -53,6 +54,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+
+      if (_selectedIndex == 1) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Login()));
+      }
     });
   }
 
@@ -71,22 +77,21 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             icon: Icon(Icons.home),
             label: 'Hjem',
           ),
-             BottomNavigationBarItem(
-           icon: ImageIcon(
-               AssetImage("assets/tournament.png"),                  
-               ),
-           label: 'Turneringer',
-         ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage("assets/tournament.png"),
+            ),
+            label: 'Turneringer',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.sports_tennis_outlined),
             label: 'Spil',
-            
           ),
-            BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: ImageIcon(
-               AssetImage("assets/leaderboard.png"),                  
-               ),
-           label: 'Førertavle',
+              AssetImage("assets/leaderboard.png"),
+            ),
+            label: 'Førertavle',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

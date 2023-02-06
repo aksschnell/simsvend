@@ -36,11 +36,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+        children: <Widget>[          
           
           const SizedBox(height: 30),
-
-    
 
           ElevatedButton(
             style: style,
