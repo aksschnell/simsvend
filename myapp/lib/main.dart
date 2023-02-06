@@ -1,97 +1,57 @@
 import 'package:flutter/material.dart';
+import "login.dart";
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
-  // This widget is the root of your application.
+  static const String _title = 'Flutter Code Sample';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Log ind',
-        theme: ThemeData(          
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text('Log ind'),
-            ),
-            body: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 70),
-                    child: 
-                    
-                  Image.asset('assets/logo.png',
-                  height: 150,
-                  scale: 2.5,                  
-                  opacity:
-                      const AlwaysStoppedAnimation<double>(1)), //Image.asset
-                  ),
+      title: _title,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(_title)),
+        body: const MyStatefulWidget(),
+      ),
+    );
+  }
+}
 
-                    Text(
-                    'TrophyHunt',
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 40),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(90.0),
-                        ),
-                        labelText: 'Email',
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    child: TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(90.0),
-                        ),
-                        labelText: 'Adgangskode',
-                      ),
-                    ),
-                  ),
-                  Container(
-                      height: 80,
-                      padding: const EdgeInsets.all(20),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(50),
-                        ),
-                        child: const Text('Log In'),
-                        onPressed: () {},
-                      )),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Glemt adgangskode?',
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Registrer',
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ),
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({super.key});
 
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
 
-                ],
-              ),
-            )));
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  @override
+  Widget build(BuildContext context) {
+    final ButtonStyle style =
+        ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
+
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          
+          const SizedBox(height: 30),
+
+    
+
+          ElevatedButton(
+            style: style,
+            onPressed: () {
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Login() ));
+            },
+            child: const Text('Go'),
+          ),
+        ],
+      ),
+    );
   }
 }
