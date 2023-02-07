@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "login.dart";
+import "profil.dart";
 
 void main() => runApp(const Home());
 
@@ -29,10 +30,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
+
+
+
+
+
+
     Text(
-      'Index 0: Hjem',
-      style: optionStyle,
+      "Hej"
     ),
+
     Text(
       'Index 1: Turneringer',
       style: optionStyle,
@@ -45,20 +52,25 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       'Index 3: Førertavle',
       style: optionStyle,
     ),
-    Text(
-      'Index 4: Profil',
-      style: optionStyle,
+        Scaffold(
+      body: Center(
+        child: Profil(),
+      ),
+    
     ),
+
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-
+        /*
       if (_selectedIndex == 1) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Login()));
       }
+    */
+
     });
   }
 
@@ -99,7 +111,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Color.fromARGB(255, 236, 152, 48),
         unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
       ),
