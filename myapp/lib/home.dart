@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import "package:myapp/leaderboard.dart";
 import "login.dart";
 import "profil.dart";
+import "leaderboard.dart";
 
 void main() => runApp(const Home());
 
@@ -33,9 +35,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
 
 
-
-
-
     Text(
       "Hej"
     ),
@@ -48,15 +47,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       'Index 2: Spil',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: Førertavle',
-      style: optionStyle,
+    Scaffold(
+      body: Leaderboard()
     ),
-        Scaffold(
-      body: Center(
-        child: Profil(),
-      ),
-    
+    Scaffold(
+    body: Profil(),
+  
     ),
 
   ];

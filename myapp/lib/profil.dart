@@ -50,6 +50,9 @@ class Album {
 }
 
 
+
+
+
 class _ProfilState extends State<Profil> {
 
   late Future<Album> futureAlbum;
@@ -79,19 +82,7 @@ class _ProfilState extends State<Profil> {
           child: Column(           
                     
                     children: <Widget>[
-                      FutureBuilder<Album>(
-          future: futureAlbum,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Text(snapshot.data!.title);
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
-
-            // By default, show a loading spinner.
-            return const CircularProgressIndicator();
-          },
-        ),
+                     
 
              Text("Mikkel Kronborg",style: TextStyle(fontSize: 40 ,fontWeight: FontWeight.bold),),
              Text("Alder: 23", style: TextStyle(fontSize: _fontsize)),
@@ -100,6 +91,20 @@ class _ProfilState extends State<Profil> {
              Text("W/L: 55.4", style: TextStyle(fontSize: _fontsize)),
              Text("Kampe: 200", style: TextStyle(fontSize: _fontsize)),
              Text("Hjemmebane: PadelBoxen", style: TextStyle(fontSize: _fontsize)),
+              FutureBuilder<Album>(
+          future: futureAlbum,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+            
+              return Text(snapshot.data!.title, style: TextStyle(fontSize: _fontsize));
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
+
+            // By default, show a loading spinner.
+            return const CircularProgressIndicator();
+          },
+        ),
           
 
 
@@ -108,7 +113,7 @@ class _ProfilState extends State<Profil> {
                 child: Container(
               
                   
-                  height: 170,
+                  height: 180,
                   width: 300,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 206, 206, 206),
@@ -136,6 +141,7 @@ class _ProfilState extends State<Profil> {
                         Text("VS", style: TextStyle(fontSize: 10),),
                         Text("Mikkel Kronborg", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                         Text("Lars Hansen", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                        Text("09-02-2022", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                         Text("2 - 1", style: TextStyle(fontSize: 15),),
                         Text("+15", style: TextStyle(fontSize: 15, color: Colors.green),),
                       ],
@@ -150,7 +156,7 @@ class _ProfilState extends State<Profil> {
                  child: Container(
                
                   
-                  height: 170,
+                  height: 180,
                   width: 300,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 206, 206, 206),
@@ -178,6 +184,7 @@ class _ProfilState extends State<Profil> {
                         Text("VS", style: TextStyle(fontSize: 10),),
                         Text("Mikkel Kronborg", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                         Text("Lars Hansen", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                         Text("09-02-2022", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                         Text("2 - 1", style: TextStyle(fontSize: 15),),
                         Text("+15", style: TextStyle(fontSize: 15, color: Colors.green),),
                       ],
