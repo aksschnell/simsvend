@@ -133,8 +133,6 @@ class _ProfilState extends State<Profil> {
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
               
-                      
-              
                       children: [
                         Text("Mikkel Kronborg", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                         Text("Lars Hansen", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),

@@ -3,6 +3,7 @@ import "package:myapp/leaderboard.dart";
 import "login.dart";
 import "profil.dart";
 import "leaderboard.dart";
+import "home_page.dart";
 
 void main() => runApp(const Home());
 
@@ -35,10 +36,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
 
 
-    Text(
-      "Hej"
-    ),
-
+    HomePage(),
+    
     Text(
       'Index 1: Turneringer',
       style: optionStyle,
