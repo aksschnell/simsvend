@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/profil.dart';
+import 'package:myapp/register.dart';
 import "home.dart";
 
 
@@ -14,16 +16,17 @@ class Login extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-            appBar: AppBar(
+            appBar: AppBar(              
               title: Text('Log ind'),
             ),
-            body: Center(
+             resizeToAvoidBottomInset: true,
+            body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 70),
+                    padding: const EdgeInsets.only(top: 70, bottom: 50),
                     child: 
                     
                   Image.asset('assets/logo.png',
@@ -34,7 +37,7 @@ class Login extends StatelessWidget {
                   ),
 
                     Text(
-                    'TrophyHunt',
+                    'Trophy\nHunt',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 40),
@@ -86,7 +89,11 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                         Navigator.push(context, MaterialPageRoute(builder: (context) => Register() ));
+
+                    },
                     child: Text(
                       'Registrer',
                       style: TextStyle(color: Colors.grey[600]),
