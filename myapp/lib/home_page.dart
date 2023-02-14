@@ -16,7 +16,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(body: 
+      home: Scaffold(
+        appBar: AppBar(
+        title: const Text('Hjem'),
+      ),
+        
+        body: 
+      
 
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -30,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                         width: 350,
                         decoration: BoxDecoration(
             
-              color: const Color.fromARGB(255, 233, 233, 233),
+                color: Color.fromARGB(255, 236, 236, 236),
                border: Border.all(width: 5, color: Color.fromARGB(255, 0, 0, 0)              
               
                     ),
@@ -81,24 +87,35 @@ SizedBox(
         child: Padding(  
           padding: const EdgeInsets.all(20.0),  
           child: Column(  
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [ 
         
 
-              Text("Dine kommende kampe", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w800, color: Colors.white)),
+              Center(child: Text("Dine kommende kampe", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w800, color: Colors.white))),
 
-              Text("data", style: TextStyle(color: Colors.white),),
-
-              Row(
-
-                children: [
-
-                  Column(  
-                    children: [Text("data", style: TextStyle(color: Colors.white),),  
-                    Text("hej", style: TextStyle(color: Colors.white),)],  
-                  ),  
-                ],  
-              ),  
-                Text("data", style: TextStyle(color: Colors.white),),  
+               Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Container(child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("15. februar kl 16.", style: TextStyle(color: Colors.white, fontSize: 17)),
+                    Text("PadelBoxen. Bane 2", style: TextStyle(color: Colors.white, fontSize: 17)),
+                  ],
+                )),
+              ),
+              
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Container(child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("15. februar kl 16.", style: TextStyle(color: Colors.white, fontSize: 17)),
+                    Text("PadelBoxen. Bane 2", style: TextStyle(color: Colors.white, fontSize: 17)),
+                  ],
+                )),
+              ),
+              
+           
             ],  
           ),  
         ),  
@@ -123,7 +140,7 @@ new Expanded(
     
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Color.fromARGB(255, 201, 201, 201),
+        color: Color.fromARGB(255, 236, 236, 236),
           border: Border.all( //<-- SEE HERE  
               width: 3,  
             ),
@@ -156,7 +173,7 @@ new Expanded(
 
         decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Color.fromARGB(255, 201, 201, 201),
+        color: Color.fromARGB(255, 236, 236, 236),
           border: Border.all( //<-- SEE HERE  
               width: 3,  
             ),
@@ -192,7 +209,7 @@ new Expanded(
     Container(
         decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Color.fromARGB(255, 201, 201, 201),
+        color: Color.fromARGB(255, 236, 236, 236),
           border: Border.all( //<-- SEE HERE  
               width: 3,  
             ),
@@ -227,7 +244,7 @@ new Expanded(
     Container(
         decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Color.fromARGB(255, 201, 201, 201),
+        color: Color.fromARGB(255, 236, 236, 236),
           border: Border.all( //<-- SEE HERE  
               width: 3,  
             ),

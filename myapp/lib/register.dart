@@ -44,7 +44,7 @@ class _RegisterState extends State<Register> {
                     child: TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(90.0),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                         labelText: 'Fornavn',
                       ),
@@ -55,7 +55,7 @@ class _RegisterState extends State<Register> {
                     child: TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(90.0),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                         labelText: 'Efternavn',
                       ),
@@ -66,7 +66,7 @@ class _RegisterState extends State<Register> {
                     child: TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(90.0),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                         labelText: 'Email',
                       ),
@@ -78,7 +78,7 @@ class _RegisterState extends State<Register> {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(90.0),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                         labelText: 'Indtast adgangskode',
                       ),
@@ -91,7 +91,7 @@ class _RegisterState extends State<Register> {
                       
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(90.0),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                         labelText: 'Indtast adgangskode igen',
                       ),

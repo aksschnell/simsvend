@@ -70,20 +70,25 @@ class _ProfilState extends State<Profil> {
   
     return MaterialApp(
 
-      home: Padding(
-        
-        padding: const EdgeInsets.all(16.0),
-        child:Scaffold(
 
-          
-        body: Center(         
+      
+
+      home: Scaffold(
+
+          appBar: AppBar(
+      title: const Text('Profil'),
+      ),
+
+        
+      body: SingleChildScrollView(
+        child: Center(         
           
           
           child: Column(           
                     
                     children: <Widget>[
                      
-
+      
              Text("Mikkel Kronborg",style: TextStyle(fontSize: 40 ,fontWeight: FontWeight.bold),),
              Text("Alder: 23", style: TextStyle(fontSize: _fontsize)),
              Text("Elo: 1000", style: TextStyle(fontSize: _fontsize)),
@@ -100,15 +105,18 @@ class _ProfilState extends State<Profil> {
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
-
+      
             // By default, show a loading spinner.
             return const CircularProgressIndicator();
           },
         ),
           
-
-
+      
+                
+                for( var i = 5 ; i >= 1; i-- )  
               Padding(
+      
+      
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
               
@@ -116,7 +124,10 @@ class _ProfilState extends State<Profil> {
                   height: 180,
                   width: 300,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 206, 206, 206),
+
+
+                    
+                    color: ( (){ if (i % 2 == 0) return Color.fromARGB(255, 196, 196, 196);} )   (),
                     border: Border.all(width: 5, color: Color.fromARGB(255, 0, 0, 0)                  
               
                     ),
@@ -134,6 +145,7 @@ class _ProfilState extends State<Profil> {
                     child: Column(
               
                       children: [
+                        
                         Text("Mikkel Kronborg", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                         Text("Lars Hansen", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                         Text("VS", style: TextStyle(fontSize: 10),),
@@ -147,50 +159,9 @@ class _ProfilState extends State<Profil> {
                   ),
                 ),
               ),
-
+      
               
-               Padding(
-                 padding: const EdgeInsets.all(.0),
-                 child: Container(
-               
-                  
-                  height: 180,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 206, 206, 206),
-                    border: Border.all(width: 5, color: Color.fromARGB(255, 0, 0, 0)                  
-               
-                    ),
-                 
-               
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-               
-                  ),
-               
-               
-                  child: Padding(
-               
-                    
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-               
-                      
-               
-                      children: [
-                        Text("Mikkel Kronborg", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
-                        Text("Lars Hansen", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                        Text("VS", style: TextStyle(fontSize: 10),),
-                        Text("Mikkel Kronborg", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                        Text("Lars Hansen", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                         Text("09-02-2022", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                        Text("2 - 1", style: TextStyle(fontSize: 15),),
-                        Text("+15", style: TextStyle(fontSize: 15, color: Colors.green),),
-                      ],
-                    ),
-                  ),
-                             ),
-               ),
-
+         
              
             ],
             

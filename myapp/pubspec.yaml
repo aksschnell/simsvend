@@ -75,6 +75,11 @@ flutter:
      - assets/leaderboard.png
      - assets/padel.jpg
      - assets/padel2.jpg
+     - assets/gender.png
+     - assets/calendar.png
+     - assets/points.png
+     - assets/location.png
+     - assets/group.png
      #- images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

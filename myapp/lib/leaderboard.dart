@@ -20,7 +20,10 @@ class _LeaderboardState extends State<Leaderboard> {
   Widget build(BuildContext context) {
     return MaterialApp(
       
-      home: Scaffold(          
+      home: Scaffold(        
+          appBar: AppBar(
+        title: const Text('Førertavle'),
+      ),  
 
         body: Center(
           

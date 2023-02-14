@@ -4,6 +4,7 @@ import "login.dart";
 import "profil.dart";
 import "leaderboard.dart";
 import "home_page.dart";
+import "tournements.dart";
 
 void main() => runApp(const Home());
 
@@ -38,10 +39,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     HomePage(),
     
-    Text(
-      'Index 1: Turneringer',
-      style: optionStyle,
-    ),
+   Tournements(),
     Text(
       'Index 2: Spil',
       style: optionStyle,
@@ -72,9 +70,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Hjem'),
-      ),
+     
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
