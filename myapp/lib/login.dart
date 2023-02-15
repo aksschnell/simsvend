@@ -1,7 +1,25 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:myapp/profil.dart';
 import 'package:myapp/register.dart';
 import "home.dart";
+import 'package:dio/dio.dart';
+
+final dio = Dio();
+
+void post() async {   
+
+  var params = {"email": "augustschnellpedersen@gmail.com", "password": "Test"};
+  final response = await dio.post('https://simsvendapi-production.up.railway.app/user/login', options: Options(headers: {
+    HttpHeaders.contentTypeHeader: "application/json",    
+  }), data: jsonEncode(params),); 
+
+  print(response);
+
+  
+}
 
 
 class Login extends StatelessWidget {
@@ -76,6 +94,9 @@ class Login extends StatelessWidget {
                         child: const Text('Log In'),
                         onPressed: () {
 
+
+
+                          post();
                           Navigator.push(context, MaterialPageRoute(builder: (context) => Home() ));
             
 

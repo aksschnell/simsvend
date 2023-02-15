@@ -5,6 +5,7 @@ import "profil.dart";
 import "leaderboard.dart";
 import "home_page.dart";
 import "tournements.dart";
+import "play.dart";
 
 void main() => runApp(const Home());
 
@@ -40,10 +41,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     HomePage(),
     
    Tournements(),
-    Text(
-      'Index 2: Spil',
-      style: optionStyle,
-    ),
+   Play(),
+   
     Scaffold(
       body: Leaderboard()
     ),
