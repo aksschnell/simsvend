@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import "casual.dart";
+import "singleordouble.dart";
+import "../home.dart";
 
 class Play extends StatefulWidget {
   const Play({super.key});
@@ -18,20 +19,28 @@ class _PlayState extends State<Play> {
       home: Scaffold(
         appBar: AppBar(
           title: Text("Spil"),
+      
+  leading: IconButton(
+    icon: Icon(Icons.arrow_back, color: Colors.black),
+    onPressed: () =>  Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Home())),
+  ), 
         ),
         body: Column(
             
             crossAxisAlignment: CrossAxisAlignment.center,           
             mainAxisAlignment: MainAxisAlignment.center,   
-          children: [
-
+          children: [            
+             
+            
+        
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Text("Vælg gamemode", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
             ),
             Container(
-
-
+        
+        
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,           
                 mainAxisAlignment: MainAxisAlignment.center,  
@@ -39,7 +48,7 @@ class _PlayState extends State<Play> {
             
             
                 children: [
-
+        
                   
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -49,7 +58,7 @@ class _PlayState extends State<Play> {
                     child: ElevatedButton(
                       child: Text('Casual', style: TextStyle(fontSize: 20),),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Casual() ));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Singleordouble(gamemode: "Casual",) ));
                       },
                     ),
                                   ),
@@ -61,7 +70,9 @@ class _PlayState extends State<Play> {
                     height: 150.0,
                     child: ElevatedButton(
                       child: Text('Competitive', style:  TextStyle(fontSize: 20),),
-                      onPressed: () {},
+                      onPressed: () {
+                         Navigator.push(context, MaterialPageRoute(builder: (context) => Singleordouble(gamemode: "Competitive",) ));
+                      },
                     ),
                                   ),
                   ),
@@ -73,12 +84,12 @@ class _PlayState extends State<Play> {
                 ],
               ),
             )
-
+        
             
          
           ],
-
-
+        
+        
         ),
         
       ),

@@ -5,7 +5,7 @@ import "profil.dart";
 import "leaderboard.dart";
 import "home_page.dart";
 import "tournements.dart";
-import "play.dart";
+import "play/play.dart";
 
 void main() => runApp(const Home());
 

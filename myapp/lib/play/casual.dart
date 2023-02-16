@@ -8,13 +8,17 @@ const List<String> list = <String>['PadelBoxen', 'PadelPadel', 'Padel Odense'];
 const List<String> players = <String>['Mikkel Kronborg', 'Jakob Johansen', 'Oliver Mathiesen'];
 
 class Casual extends StatefulWidget {
-  const Casual({super.key});
+
+  
+  final String value;
+  const Casual({super.key, required this.value});
 
   @override
   State<Casual> createState() => _CasualState();
 }
 
 class _CasualState extends State<Casual> {
+    
 
 
     String dropdownValue = list.first;
@@ -23,8 +27,8 @@ class _CasualState extends State<Casual> {
 
 
 String gamemode = "single";
-
 String match_players = "random";
+
   
  
   @override
@@ -50,7 +54,7 @@ String match_players = "random";
           
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Text("Vælg sted", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
+                child: Text(widget.value, style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
               ),
         
               DropdownButton<String>(
