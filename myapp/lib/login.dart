@@ -15,12 +15,9 @@ void post() async {
   final response = await dio.post('https://simsvendapi-production.up.railway.app/user/login', options: Options(headers: {
     HttpHeaders.contentTypeHeader: "application/json",    
   }), data: jsonEncode(params),); 
-
   print(response);
-
   
 }
-
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);

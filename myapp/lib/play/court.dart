@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:myapp/play/play.dart';
 import 'singleordouble.dart';
 import "teammateselecter.dart";
+import "opponent.dart";
 
 const List<String> list = <String>['PadelBoxen', 'PadelPadel', 'Padel Odense'];
 
@@ -28,8 +30,23 @@ class _CourtState extends State<Court> {
 home: Scaffold( appBar: AppBar(
           leading: IconButton(
     icon: Icon(Icons.arrow_back, color: Colors.black),
-    onPressed: () =>  Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Singleordouble(gamemode: widget.gamemode,))),
+    onPressed: () {
+
+
+    if(widget.gamemode == "Casual")
+    {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Singleordouble(gamemode: widget.gamemode) ));
+
+    }
+
+    else if (widget.gamemode == "Competitive"){
+     
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Play() ));
+
+
+    }
+  
+   },
   ),
           title: Text("Bane vælger"),
         ),
@@ -76,9 +93,23 @@ home: Scaffold( appBar: AppBar(
                       onPressed: () {
 
 
-                        
-                         Navigator.push(context, MaterialPageRoute(builder: (context) => Teammateselecter(single_or_double: widget.single_or_double, gamemode: widget.gamemode, court: dropdownValue,) ));
+                        if(widget.single_or_double == "Double")
+                        {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Teammateselecter(single_or_double: widget.single_or_double, gamemode: widget.gamemode, court: dropdownValue,) ));
 
+                        }
+
+                        else if(widget.single_or_double == "Single")
+                        {
+
+
+
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => opponentselecter(single_or_double: widget.single_or_double, gamemode: widget.gamemode, court: dropdownValue, teammate: "none",) ));
+
+                        }
+
+                         
                       },
                     ),
                                   ),

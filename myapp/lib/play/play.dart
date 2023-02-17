@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:myapp/play/court.dart';
 import "singleordouble.dart";
 import "../home.dart";
 
@@ -71,7 +72,7 @@ class _PlayState extends State<Play> {
                     child: ElevatedButton(
                       child: Text('Competitive', style:  TextStyle(fontSize: 20),),
                       onPressed: () {
-                         Navigator.push(context, MaterialPageRoute(builder: (context) => Singleordouble(gamemode: "Competitive",) ));
+                         Navigator.push(context, MaterialPageRoute(builder: (context) => Court(single_or_double: "Double", gamemode: "Competitive",) ));
                       },
                     ),
                                   ),

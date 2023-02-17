@@ -49,8 +49,7 @@ class _SingleordoubleState extends State<Singleordouble> {
 
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,           
-                mainAxisAlignment: MainAxisAlignment.center,  
-            
+                mainAxisAlignment: MainAxisAlignment.center,             
             
             
                 children: [

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-//import 'package:myapp/play/opponentselecter.dart';
+import 'package:myapp/play/opponent.dart';
 import "court.dart";
+import "date.dart";
 
 const List<String> list = <String>['Mikkel Kronborg', 'Jakob Johansen', 'Oliver Mathiesen'];
 
@@ -11,6 +12,7 @@ class Teammateselecter extends StatefulWidget {
   final String gamemode;
   final String single_or_double;
   final String court;
+  
 
   const Teammateselecter({super.key, required this.gamemode, required this.single_or_double, required this.court});
 
@@ -20,14 +22,16 @@ class Teammateselecter extends StatefulWidget {
 
 class _TeammateselecterState extends State<Teammateselecter> {
 
-
+String match_players = "";
     void initState() {
 
+
+      match_players = "randoms";
 
     super.initState();
   }
 
-  String match_players = "random";
+  
 
     String dropdownValue = list.first;
   @override
@@ -39,17 +43,9 @@ class _TeammateselecterState extends State<Teammateselecter> {
 
     
  onPressed: () {
-
-
-    if(widget.single_or_double == "Double")
-    {
-        //Navigator.push(context, MaterialPageRoute(builder: (context) => Court(single_or_double: widget.single_or_double, gamemode: widget.gamemode, court: court,) ));
-
-    }
-
-    else {
-
-    }
+    
+     
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Court(single_or_double: widget.single_or_double, gamemode: widget.gamemode) ));   
   
    },
 
@@ -102,10 +98,9 @@ class _TeammateselecterState extends State<Teammateselecter> {
               ],  
             ),
           ),     
-               
-        
+                       
                 
-            Text(widget.single_or_double),              
+                      
             
 
                 
@@ -148,9 +143,22 @@ class _TeammateselecterState extends State<Teammateselecter> {
                     child: ElevatedButton(
                       child: Text('OK', style:  TextStyle(fontSize: 20),),
                       onPressed: () {
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => Oponentselecter(single_or_double: widget.single_or_double, gamemode: widget.gamemode, court: dropdownValue,) ));
 
-                      },
+                          if(widget.gamemode == "Casual")
+                          {
+
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => opponentselecter(teammate: dropdownValue, single_or_double: widget.single_or_double, gamemode: widget.gamemode, court: widget.court,) ));
+                    
+                          }
+                          else if(widget.gamemode == "Competitive")
+                          {
+                             Navigator.push(context, MaterialPageRoute(builder: (context) => Date(teammate: dropdownValue, single_or_double: widget.single_or_double, gamemode: widget.gamemode, court: widget.court, op1: "None", op2: "None",) ));
+                    
+                          }
+                    
+                    
+                    
+                     },
                     ),
                                   ),
                   ),   
