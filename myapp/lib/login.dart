@@ -7,25 +7,68 @@ import 'package:myapp/register.dart';
 import "home.dart";
 import 'package:dio/dio.dart';
 
+String errorMessage = "";
+
+
 final dio = Dio();
 
-void post() async {   
 
-  var params = {"email": "augustschnellpedersen@gmail.com", "password": "Test"};
+
+void post(String email, String password, context) async {   
+ 
+  try {
+
+     var params = {"email": email, "password": password};
   final response = await dio.post('https://simsvendapi-production.up.railway.app/user/login', options: Options(headers: {
     HttpHeaders.contentTypeHeader: "application/json",    
   }), data: jsonEncode(params),); 
-  print(response);
+    print(response);
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home() ));
+
+
+  } on DioError catch (e){    
+     print(e.message);
+     errorMessage = await "Forkert kode eller email";
+     
+    
+  } 
+  
+  
   
 }
 
-class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+
+
+class Login extends StatefulWidget {
+
+  
+  const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+
+class _LoginState extends State<Login> {
+ 
+  String _errorMessage = "";
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+ @override
+ 
+
+void initState() {
+    _errorMessage = errorMessage;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    
+    return MaterialApp(          
         title: 'Log ind',
         theme: ThemeData(          
           primarySwatch: Colors.blue,
@@ -60,17 +103,24 @@ class Login extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextField(
+                      
+                      
+                      controller: emailController..text = 'augustschnellpedersen@gmail.com',
+
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         labelText: 'Email',
                       ),
+
+
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextField(
+                      controller: passwordController..text = "Test",
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -80,6 +130,8 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                  Text(_errorMessage),
                   Container(
                       height: 80,
                       padding: const EdgeInsets.all(20),
@@ -91,12 +143,21 @@ class Login extends StatelessWidget {
                         child: const Text('Log In'),
                         onPressed: () {
 
-
-
-                          post();
                           Navigator.push(context, MaterialPageRoute(builder: (context) => Home() ));
-            
 
+
+                            /*
+                          post(emailController.text, passwordController.text, context);
+                          print(errorMessage);
+      
+                        Future.delayed(const Duration(milliseconds: 5000), () {     
+                          setState(() {
+                           
+                            _errorMessage = errorMessage;
+                          });
+                        });
+                         */
+                          
                         },
                       )),
                   TextButton(

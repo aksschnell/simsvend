@@ -6,15 +6,13 @@ import "date.dart";
 
 class Confirm extends StatefulWidget {
 
-
   final String gamemode;
   final String single_or_double;
   final String court;
   final String teammate;
   final String op1;
   final String op2;
-  final String date;
-  
+  final String date; 
 
 
    const Confirm({super.key, required this.gamemode, required this.single_or_double, required this.court, required this.teammate, required this.op1, required this.op2, required this.date});
@@ -60,9 +58,7 @@ class _ConfirmState extends State<Confirm> {
                 Text("Modstander 1: " + widget.op1),
                 Text("Modstander 2: " + widget.op2),
                 Text("Bane: " + widget.court),
-                Text("Dato: " + widget.date)
-          
-              
+                Text("Dato: " + widget.date)        
           
             ]),
           ),

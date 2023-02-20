@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:http/http.dart' as http;
+import "dart:async";
 
 class Profil extends StatefulWidget {
   const Profil({super.key});
@@ -14,37 +15,62 @@ class Profil extends StatefulWidget {
 double _fontsize = 22;
 
 
-Future<Album> fetchAlbum() async {
-  final response = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/2'));
+Future<http.Response> fetchUser() {
+  return http.post(
+    Uri.parse('https://simsvendapi-production.up.railway.app/stats'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'user_stats_id': "1",
+    }),
+  );
+}
 
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
+
+
+Future<User> createUser(String title) async {
+  final response = await http.post(
+    Uri.parse('https://simsvendapi-production.up.railway.app/stats'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'title': title,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    // If the server did return a 201 CREATED response,
     // then parse the JSON.
-    return Album.fromJson(jsonDecode(response.body));
+    return User.fromJson(jsonDecode(response.body));
   } else {
-    // If the server did not return a 200 OK response,
+    // If the server did not return a 201 CREATED response,
     // then throw an exception.
-    throw Exception('Failed to load album');
+    throw Exception('Failed to create album.');
   }
 }
 
-class Album {
-  final int userId;
-  final int id;
-  final String title;
+class User {
 
-  const Album({
-    required this.userId,
+  final int id;
+  final int elo;
+  final int Wins;
+  final int losses;
+
+  const User({
     required this.id,
-    required this.title,
+    required this.elo,
+    required this.Wins,
+    required this.losses
   });
 
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      userId: json['userId'],
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
       id: json['id'],
-      title: json['title'],
+      elo: json['elo'],
+      Wins: json['Wins'],
+      losses: json["losses"]
     );
   }
 }
@@ -52,17 +78,12 @@ class Album {
 
 
 
-
 class _ProfilState extends State<Profil> {
 
-  late Future<Album> futureAlbum;
+
 
   @override
-  void initState() {
-    super.initState();
-    futureAlbum = fetchAlbum();
-  }
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -96,12 +117,18 @@ class _ProfilState extends State<Profil> {
              Text("W/L: 55.4", style: TextStyle(fontSize: _fontsize)),
              Text("Kampe: 200", style: TextStyle(fontSize: _fontsize)),
              Text("Hjemmebane: PadelBoxen", style: TextStyle(fontSize: _fontsize)),
-              FutureBuilder<Album>(
-          future: futureAlbum,
+
+              
+
+
+
+             
+              FutureBuilder<User>(
+          future: futureUser,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
             
-              return Text(snapshot.data!.title, style: TextStyle(fontSize: _fontsize));
+              return Text(snapshot.data!.id.toString(), style: TextStyle(fontSize: _fontsize));
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
@@ -110,6 +137,8 @@ class _ProfilState extends State<Profil> {
             return const CircularProgressIndicator();
           },
         ),
+
+        
           
       
                 
@@ -145,6 +174,24 @@ class _ProfilState extends State<Profil> {
                     child: Column(
               
                       children: [
+
+
+
+                       
+                          FutureBuilder<User>(
+                                future: futureUser,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Text(snapshot.data!.id.toString());
+                                  } else if (snapshot.hasError) {
+                                    return Text('${snapshot.error}');
+                                  }
+
+                                  return const CircularProgressIndicator();
+                                },
+                              ),
+
+
                         
                         Text("Mikkel Kronborg", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                         Text("Lars Hansen", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
@@ -173,4 +220,5 @@ class _ProfilState extends State<Profil> {
 
     );
   }
+  
 }
