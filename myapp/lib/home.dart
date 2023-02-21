@@ -35,41 +35,30 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-
-
-
     HomePage(),
-    
-   Tournements(),
-   Play(),
-   
+    Tournements(),
+    Play(),
+    Scaffold(body: Leaderboard()),
     Scaffold(
-      body: Leaderboard()
+      body: Profil(),
     ),
-    Scaffold(
-    body: Profil(),
-  
-    ),
-
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-        /*
+      /*
       if (_selectedIndex == 1) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Login()));
       }
     */
-
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

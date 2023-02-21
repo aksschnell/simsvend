@@ -13,106 +13,87 @@ class _TournementsState extends State<Tournements> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-
-      home: Scaffold(
-
-          appBar: AppBar(
+        home: Scaffold(
+      appBar: AppBar(
         title: const Text('Turneringer'),
       ),
-
-
-        body: Center(
-          child: Column(
-            children: [
-
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Container(child: Text(""),),
+      body: Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: Container(
+                child: Text(""),
               ),
-
-          
-              for( var i = 5 ; i >= 1; i-- )  
+            ),
+            for (var i = 5; i >= 1; i--)
               Padding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: Container(
-                  
-                      
                   height: 100,
                   width: 350,
-                      
-                    decoration: BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Color.fromARGB(255, 230, 230, 230),
-                    borderRadius: BorderRadius.circular(16),  
-                    border: Border.all( //<-- SEE HERE  
-                      width: 5,  
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      //<-- SEE HERE
+                      width: 5,
                     ),
-                      
                   ),
-                  child: Stack(           
-                    
+                  child: Stack(
                     children: <Widget>[
                       Positioned(
                         top: 5,
                         left: 5,
                         child: Row(
                           children: [
-                            ImageIcon(
-                              AssetImage("assets/location.png")),
+                            ImageIcon(AssetImage("assets/location.png")),
                             Text("PadelBoxen"),
                           ],
-                        ),),
+                        ),
+                      ),
                       Positioned(
                         top: 5,
                         right: 5,
                         child: Row(
                           children: [
-                            
-                            ImageIcon(
-                              AssetImage("assets/gender.png")),
+                            ImageIcon(AssetImage("assets/gender.png")),
                             Text("Mix"),
-                           
                           ],
-                        ),),
-                        Positioned.fill(child: Align(              
-                          alignment: Alignment.center,
-                          child: Text("14-02-2023"),
-                        )),
-                        
-                        Positioned(
+                        ),
+                      ),
+                      Positioned.fill(
+                          child: Align(
+                        alignment: Alignment.center,
+                        child: Text("14-02-2023"),
+                      )),
+                      Positioned(
                         bottom: 5,
                         left: 5,
                         child: Row(
                           children: [
-                            ImageIcon(
-                              AssetImage("assets/points.png")),
+                            ImageIcon(AssetImage("assets/points.png")),
                             Text("100 Points"),
                           ],
-                        ),),
-                        
-                        Positioned(
+                        ),
+                      ),
+                      Positioned(
                         bottom: 5,
                         right: 5,
                         child: Row(
                           children: [
-                            ImageIcon(
-                              AssetImage("assets/group.png")),
+                            ImageIcon(AssetImage("assets/group.png")),
                             Text("10/100"),
                           ],
-                        ),),
-                        
-                
-                       
+                        ),
+                      ),
                     ],
-                ),
+                  ),
                 ),
               ),
-           
-            ],
-          ),
+          ],
         ),
-)
-
-    );
+      ),
+    ));
   }
 }
