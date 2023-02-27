@@ -6,6 +6,7 @@ import "leaderboard.dart";
 import "home_page.dart";
 import "tournements.dart";
 import "play/play.dart";
+import "leaderboard2.dart";
 
 void main() => runApp(const Home());
 
@@ -38,7 +39,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     HomePage(),
     Tournements(),
     Play(),
-    Scaffold(body: Leaderboard()),
+    LeaderboardWidget(),
     Scaffold(
       body: Profil(),
     ),
