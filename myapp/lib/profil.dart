@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -17,6 +18,8 @@ class Profil extends StatefulWidget {
 
 double _fontsize = 22;
 
+/*
+
 class User {
   final int id;
   final int elo;
@@ -33,26 +36,22 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-        id: json['id'],
-        elo: json['elo'],
-        Wins: json['Wins'],
-        losses: json["losses"],
-        points: json["points"]);
+        id: json['UserStats.id'],
+        elo: json['UserStats.elo'],
+        Wins: json['UserStats.Wins'],
+        losses: json["UserStats.losses"],
+        points: json["UserStats.points"]);
   }
 }
 
 Future<List<User>> makePostRequest() async {
-  final uri = Uri.parse('https://simsvendapi-production.up.railway.app/stats');
-  final headers = {'Content-Type': 'application/json'};
-  Map<String, dynamic> body = {'user_stats_id': 1};
-  String jsonBody = json.encode(body);
+  final uri =
+      Uri.parse('https://simsvendapi-production.up.railway.app/stats/1');
+
   final encoding = Encoding.getByName('utf-8');
 
-  Response response = await post(
+  Response response = await get(
     uri,
-    headers: headers,
-    body: jsonBody,
-    encoding: encoding,
   );
 
   var responseData = json.decode(response.body);
@@ -69,10 +68,37 @@ Future<List<User>> makePostRequest() async {
     //Adding user to the list.
     users.add(user);
   }
+
+  print(users);
   return users;
 }
 
+*/
+
 class _ProfilState extends State<Profil> {
+  List _leaderboardData = [];
+
+  Future fetchProfil() async {
+    try {
+      final response = await Dio()
+          .get('https://simsvendapi-production.up.railway.app/leaderboard/1');
+      setState(() {
+        _leaderboardData = response.data;
+
+        print(_leaderboardData[0]['ID']);
+      });
+    } catch (e) {
+      // handle error
+
+      print(e);
+    }
+  }
+
+  void initState() {
+    super.initState();
+    fetchProfil();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -85,7 +111,7 @@ class _ProfilState extends State<Profil> {
             child: Column(
               children: <Widget>[
                 FutureBuilder(
-                  future: makePostRequest(),
+                  future: fetchProfil(),
                   builder: (BuildContext ctx, AsyncSnapshot snapshot) {
                     if (snapshot.data == null) {
                       return Container(
@@ -104,6 +130,7 @@ class _ProfilState extends State<Profil> {
                       return Container(
                           child: Column(
                         children: [
+                          Text(snapshot.data[0].toString()),
                           Text("Elo: " + snapshot.data[0].elo.toString(),
                               style: TextStyle(fontSize: _fontsize)),
                           Text("Points: " + snapshot.data[0].points.toString(),
@@ -117,6 +144,7 @@ class _ProfilState extends State<Profil> {
                     }
                   },
                 ),
+                Text(_leaderboardData[0]["ID"].toString()),
                 for (var i = 5; i >= 1; i--)
                   Padding(
                     padding: const EdgeInsets.all(8.0),

@@ -83,7 +83,7 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextField(
                       controller: emailController
-                        ..text = 'augustschnellpedersen@gmail.com',
+                        ..text = 't.kronborg6@gmail.com',
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -115,8 +115,10 @@ class _LoginState extends State<Login> {
                         ),
                         child: const Text('Log In'),
                         onPressed: () {
-                          //Navigator.push(context, MaterialPageRoute(builder: (context) => Home() ));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Home()));
 
+                          /*
                           post(emailController.text, passwordController.text,
                               context);
                           print(errorMessage);
@@ -127,6 +129,7 @@ class _LoginState extends State<Login> {
                               _errorMessage = errorMessage;
                             });
                           });
+*/
                         },
                       )),
                   TextButton(
