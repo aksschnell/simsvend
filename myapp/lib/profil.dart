@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -18,80 +19,22 @@ class Profil extends StatefulWidget {
 
 double _fontsize = 22;
 
-/*
-
-class User {
-  final int id;
-  final int elo;
-  final int Wins;
-  final int losses;
-  final int points;
-
-  const User(
-      {required this.id,
-      required this.elo,
-      required this.Wins,
-      required this.losses,
-      required this.points});
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-        id: json['UserStats.id'],
-        elo: json['UserStats.elo'],
-        Wins: json['UserStats.Wins'],
-        losses: json["UserStats.losses"],
-        points: json["UserStats.points"]);
-  }
-}
-
-Future<List<User>> makePostRequest() async {
-  final uri =
-      Uri.parse('https://simsvendapi-production.up.railway.app/stats/1');
-
-  final encoding = Encoding.getByName('utf-8');
-
-  Response response = await get(
-    uri,
-  );
-
-  var responseData = json.decode(response.body);
-
-  List<User> users = [];
-  for (var singleUser in responseData) {
-    User user = User(
-        id: singleUser["id"],
-        elo: singleUser["elo"],
-        points: singleUser["points"],
-        Wins: singleUser["Wins"],
-        losses: singleUser["losses"]);
-
-    //Adding user to the list.
-    users.add(user);
-  }
-
-  print(users);
-  return users;
-}
-
-*/
-
 class _ProfilState extends State<Profil> {
-  List _leaderboardData = [];
+  Future<List<dynamic>> fetchProfil() async {
+    List result = [];
 
-  Future fetchProfil() async {
     try {
       final response = await Dio()
-          .get('https://simsvendapi-production.up.railway.app/leaderboard/1');
-      setState(() {
-        _leaderboardData = response.data;
+          .get('https://simsvendapi-production.up.railway.app/user/token/1');
 
-        print(_leaderboardData[0]['ID']);
+      setState(() {
+        result = response.data;
       });
     } catch (e) {
-      // handle error
-
       print(e);
     }
+
+    return result;
   }
 
   void initState() {
@@ -110,41 +53,57 @@ class _ProfilState extends State<Profil> {
           child: Center(
             child: Column(
               children: <Widget>[
-                FutureBuilder(
-                  future: fetchProfil(),
-                  builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-                    if (snapshot.data == null) {
-                      return Container(
-                        child: Column(children: [
-                          Text("Elo: Loading...",
-                              style: TextStyle(fontSize: _fontsize)),
-                          Text("Points: Loading...",
-                              style: TextStyle(fontSize: _fontsize)),
-                          Text("Wins: Loading...",
-                              style: TextStyle(fontSize: _fontsize)),
-                          Text("Losses: Loading...",
-                              style: TextStyle(fontSize: _fontsize)),
-                        ]),
-                      );
-                    } else {
-                      return Container(
-                          child: Column(
-                        children: [
-                          Text(snapshot.data[0].toString()),
-                          Text("Elo: " + snapshot.data[0].elo.toString(),
-                              style: TextStyle(fontSize: _fontsize)),
-                          Text("Points: " + snapshot.data[0].points.toString(),
-                              style: TextStyle(fontSize: _fontsize)),
-                          Text("Wins: " + snapshot.data[0].Wins.toString(),
-                              style: TextStyle(fontSize: _fontsize)),
-                          Text("Losses: " + snapshot.data[0].losses.toString(),
-                              style: TextStyle(fontSize: _fontsize)),
-                        ],
-                      ));
-                    }
-                  },
+                SizedBox(
+                  height: 150,
+                  child: FutureBuilder<List<dynamic>>(
+                    future: fetchProfil(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<dynamic>> snapshot) {
+                      if (snapshot.hasData) {
+                        List<dynamic> data = snapshot.data!;
+                        return ListView.builder(
+                          itemCount: data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final profile = data[index];
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: Column(children: [
+                                  Text(
+                                    'User ID: ${profile['ID']}',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  Text(
+                                    'Navn: ${profile['userInfo']['first_name']} ' +
+                                        "${profile['userInfo']['last_name']}",
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  Text(
+                                    'Elo: ${profile['UserStats']['elo']}',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  Text(
+                                    'Points: ${profile['UserStats']['points']}',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                ]),
+                              ),
+                            );
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error loading data'),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
                 ),
-                Text(_leaderboardData[0]["ID"].toString()),
                 for (var i = 5; i >= 1; i--)
                   Padding(
                     padding: const EdgeInsets.all(8.0),
