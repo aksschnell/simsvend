@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:dio/dio.dart';
+import 'package:myapp/tournmenet_details.dart';
 
 class Tournements extends StatefulWidget {
   const Tournements({super.key});
@@ -19,11 +20,25 @@ class _TournementsState extends State<Tournements> {
 
       setState(() {
         result = response.data;
+
+        for (int i = 1; i <= result.length; i++) {
+          String date = response.data[0]["date"];
+          final splitted = date.split("T");
+          result[i - 1]["date"] = splitted[0];
+        }
       });
     } catch (e) {
       print(e);
     }
+
     return result;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchTours();
   }
 
   @override
@@ -69,68 +84,81 @@ class _TournementsState extends State<Tournements> {
                                         width: 5,
                                       ),
                                     ),
-                                    child: Stack(
-                                      children: <Widget>[
-                                        Positioned(
-                                          top: 5,
-                                          left: 5,
-                                          child: Row(
-                                            children: [
-                                              ImageIcon(AssetImage(
-                                                  "assets/location.png")),
-                                              Text(
-                                                '${tours['Place']["name"]}',
-                                              ),
-                                            ],
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print('${tours['ID']}');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Tournement_Details(
+                                                      id: '${tours['ID']}',
+                                                    )));
+                                      },
+                                      child: Stack(
+                                        children: <Widget>[
+                                          Positioned(
+                                            top: 5,
+                                            left: 5,
+                                            child: Row(
+                                              children: [
+                                                ImageIcon(AssetImage(
+                                                    "assets/location.png")),
+                                                Text(
+                                                  '${tours['Place']["name"]}',
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Positioned(
-                                          top: 5,
-                                          right: 5,
-                                          child: Row(
-                                            children: [
-                                              ImageIcon(AssetImage(
-                                                  "assets/gender.png")),
-                                              Text(
-                                                '${tours['gender']}',
-                                              ),
-                                            ],
+                                          Positioned(
+                                            top: 5,
+                                            right: 5,
+                                            child: Row(
+                                              children: [
+                                                ImageIcon(AssetImage(
+                                                    "assets/gender.png")),
+                                                Text(
+                                                  '${tours['gender']}',
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Positioned.fill(
-                                            child: Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            '${tours['date']}',
+                                          Positioned.fill(
+                                              child: Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              '${tours['date']}',
+                                            ),
+                                          )),
+                                          Positioned(
+                                            bottom: 5,
+                                            left: 5,
+                                            child: Row(
+                                              children: [
+                                                ImageIcon(AssetImage(
+                                                    "assets/points.png")),
+                                                Text(
+                                                  "Min. elo " +
+                                                      '${tours['elo']}',
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        )),
-                                        Positioned(
-                                          bottom: 5,
-                                          left: 5,
-                                          child: Row(
-                                            children: [
-                                              ImageIcon(AssetImage(
-                                                  "assets/points.png")),
-                                              Text(
-                                                "Min. elo " + '${tours['elo']}',
-                                              ),
-                                            ],
+                                          Positioned(
+                                            bottom: 5,
+                                            right: 5,
+                                            child: Row(
+                                              children: [
+                                                ImageIcon(AssetImage(
+                                                    "assets/group.png")),
+                                                Text(
+                                                  '${tours['how_many']}',
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Positioned(
-                                          bottom: 5,
-                                          right: 5,
-                                          child: Row(
-                                            children: [
-                                              ImageIcon(AssetImage(
-                                                  "assets/group.png")),
-                                              Text(
-                                                '${tours['how_many']}',
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
