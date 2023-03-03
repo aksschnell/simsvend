@@ -56,6 +56,7 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
           title: Text("Turneringsdetaljer"),
         ),
         body: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
           child: Column(
             children: [
               SizedBox(
@@ -94,12 +95,16 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
                                     style: TextStyle(fontSize: 22),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    "Køn: " + '${data["gender"]}',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    ImageIcon(AssetImage("assets/gender.png")),
+                                    Text(
+                                      " " + '${data["gender"]}',
+                                      style: TextStyle(fontSize: 22),
+                                    ),
+                                  ],
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -122,7 +127,8 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
                                     ImageIcon(
                                         AssetImage("assets/location.png")),
                                     Text(
-                                      '${data['Place']["name"]}' +
+                                      " " +
+                                          '${data['Place']["name"]}' +
                                           " " +
                                           '${data['Place']["street_name"]}',
                                       style: TextStyle(fontSize: 22),

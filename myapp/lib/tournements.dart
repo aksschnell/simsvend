@@ -56,7 +56,6 @@ class _TournementsState extends State<Tournements> {
                 padding: const EdgeInsets.only(top: 16),
               ),
               SizedBox(
-                height: 10000,
                 child: FutureBuilder<List<dynamic>>(
                   future: fetchTours(),
                   builder: (BuildContext context,
@@ -64,6 +63,8 @@ class _TournementsState extends State<Tournements> {
                     if (snapshot.hasData) {
                       List<dynamic> data = snapshot.data!;
                       return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: data.length,
                         itemBuilder: (BuildContext context, int index) {
                           final tours = data[index];
