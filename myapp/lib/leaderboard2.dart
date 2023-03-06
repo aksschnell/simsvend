@@ -22,14 +22,6 @@ class _LeaderboardWidgetState extends State<LeaderboardWidget> {
         _leaderboardData = response.data;
 
         print(_leaderboardData);
-
-        if (points) {
-          _leaderboardData.sort((a, b) =>
-              b["UserStats"]["points"].compareTo(a["UserStats"]["points"]));
-        } else {
-          _leaderboardData.sort(
-              (a, b) => b["UserStats"]["elo"].compareTo(a["UserStats"]["elo"]));
-        }
       });
     } catch (e) {
       print(e);
@@ -94,6 +86,14 @@ class _LeaderboardWidgetState extends State<LeaderboardWidget> {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: _leaderboardData.length,
                       itemBuilder: (context, index) {
+                        if (points) {
+                          _leaderboardData.sort((a, b) => b["UserStats"]
+                                  ["points"]
+                              .compareTo(a["UserStats"]["points"]));
+                        } else {
+                          _leaderboardData.sort((a, b) => b["UserStats"]["elo"]
+                              .compareTo(a["UserStats"]["elo"]));
+                        }
                         final data = _leaderboardData[index];
                         if (points)
                           return ListTile(
