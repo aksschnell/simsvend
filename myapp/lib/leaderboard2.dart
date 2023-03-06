@@ -87,10 +87,11 @@ class _LeaderboardWidgetState extends State<LeaderboardWidget> {
               ),
             ),
             SizedBox(
-              height: 1000,
               child: _leaderboardData.isEmpty
                   ? Center(child: CircularProgressIndicator())
                   : ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: _leaderboardData.length,
                       itemBuilder: (context, index) {
                         final data = _leaderboardData[index];

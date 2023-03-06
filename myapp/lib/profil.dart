@@ -9,6 +9,8 @@ import "dart:async";
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:myapp/play/casual.dart';
+import "my_globals.dart" as globals;
+import "login.dart";
 
 class Profil extends StatefulWidget {
   const Profil({super.key});
@@ -24,8 +26,9 @@ class _ProfilState extends State<Profil> {
     List result = [];
 
     try {
-      final response = await Dio()
-          .get('https://simsvendapi-production.up.railway.app/user/token/1');
+      final response = await Dio().get(
+          'https://simsvendapi-production.up.railway.app/user/token/' +
+              globals.user_id.toString());
 
       setState(() {
         result = response.data;
@@ -37,8 +40,18 @@ class _ProfilState extends State<Profil> {
     return result;
   }
 
+  void LogOut() {
+    setState(() {
+      globals.user_id = 0;
+    });
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+  }
+
   void initState() {
     super.initState();
+
+    print(globals.user_id);
     fetchProfil();
   }
 
@@ -48,6 +61,12 @@ class _ProfilState extends State<Profil> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Profil'),
+          leading: IconButton(
+            icon: Icon(Icons.logout_sharp, color: Colors.black),
+            onPressed: () {
+              LogOut();
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child: Center(

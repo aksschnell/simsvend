@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import "package:myapp/leaderboard.dart";
+
 import "login.dart";
 import "profil.dart";
-import "leaderboard.dart";
+
 import "home_page.dart";
 import "tournements.dart";
 import "play/play.dart";

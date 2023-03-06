@@ -5,6 +5,7 @@ import 'package:myapp/profil.dart';
 import 'package:myapp/register.dart';
 import "home.dart";
 import 'package:dio/dio.dart';
+import "my_globals.dart" as globals;
 
 String errorMessage = "";
 
@@ -20,7 +21,8 @@ void post(String email, String password, context) async {
       }),
       data: jsonEncode(params),
     );
-    print(response);
+
+    globals.user_id = response.data[0]["ID"];
 
     Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   } on DioError catch (e) {
@@ -115,13 +117,13 @@ class _LoginState extends State<Login> {
                         ),
                         child: const Text('Log In'),
                         onPressed: () {
+                          /*
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => Home()));
+  */
 
-                          /*
                           post(emailController.text, passwordController.text,
                               context);
-                          print(errorMessage);
 
                           Future.delayed(const Duration(milliseconds: 5000),
                               () {
@@ -129,9 +131,6 @@ class _LoginState extends State<Login> {
                               _errorMessage = errorMessage;
                             });
                           });
-
-                          
-*/
                         },
                       )),
                   TextButton(

@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import "dart:io";
 import 'dart:convert';
 import "home.dart";
+import "my_globals.dart" as globals;
 
 final dio = Dio();
 
@@ -29,9 +30,10 @@ Future<dynamic> register(
       data: jsonEncode(params),
     );
 
-    result = response;
+    print(response.data["ID"]);
 
-    return result;
+    globals.user_id = response.data["ID"];
+    return response.data["ID"];
 
     //Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   } on DioError catch (e) {
@@ -40,7 +42,7 @@ Future<dynamic> register(
 
     result = errorMessage;
 
-    return result.data;
+    return result;
   }
 }
 
