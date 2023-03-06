@@ -1,6 +1,48 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import "dart:io";
+import 'dart:convert';
+import "home.dart";
+
+final dio = Dio();
+
+String errorMessage = "";
+
+Future<dynamic> register(
+    String email, String first_name, String last_name, String password) async {
+  dynamic result;
+
+  try {
+    var params = {
+      "email": email,
+      "first_name": first_name,
+      "last_name": last_name,
+      "password": password
+    };
+    final response = await dio.post(
+      'https://simsvendapi-production.up.railway.app/user/',
+      options: Options(headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      }),
+      data: jsonEncode(params),
+    );
+
+    result = response;
+
+    return result;
+
+    //Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+  } on DioError catch (e) {
+    print(e.message);
+    errorMessage = await "Fejl";
+
+    result = errorMessage;
+
+    return result.data;
+  }
+}
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -10,15 +52,21 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final emailController = TextEditingController();
+  final first_nameController = TextEditingController();
+  final last_nameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final passwordRepeatController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Registrer',
-        theme: ThemeData(          
+        theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Scaffold(         
-          resizeToAvoidBottomInset: true,
+        home: Scaffold(
+            resizeToAvoidBottomInset: true,
             appBar: AppBar(
               title: Text('Registrer'),
             ),
@@ -29,19 +77,16 @@ class _RegisterState extends State<Register> {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 70),
-                    child: 
-                    
-                  Image.asset('assets/logo.png',
-                  height: 150,
-                  scale: 2.5,                  
-                  opacity:
-                      const AlwaysStoppedAnimation<double>(1)), //Image.asset
+                    child: Image.asset('assets/logo.png',
+                        height: 150,
+                        scale: 2.5,
+                        opacity: const AlwaysStoppedAnimation<double>(
+                            1)), //Image.asset
                   ),
-
-                  
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextField(
+                      controller: first_nameController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -50,9 +95,10 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                   ),
-                     Container(
+                  Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextField(
+                      controller: last_nameController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -61,9 +107,10 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                   ),
-                     Container(
+                  Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -75,6 +122,7 @@ class _RegisterState extends State<Register> {
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextField(
+                      controller: passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -84,11 +132,11 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                   ),
-                   Container(
+                  Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextField(
+                      controller: passwordRepeatController,
                       obscureText: true,
-                      
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -97,26 +145,43 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                   ),
+                  Text(errorMessage),
                   Container(
                       height: 80,
                       padding: const EdgeInsets.all(20),
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(50),
-                          
-                        ),
-                        child: const Text('OK'),
-                        onPressed: () {
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(50),
+                          ),
+                          child: const Text('OK'),
+                          onPressed: () {
+                            if (first_nameController.text.isNotEmpty &&
+                                last_nameController.text.isNotEmpty &&
+                                emailController.text.isNotEmpty &&
+                                passwordController.text.isNotEmpty) {
+                              if (passwordController.text ==
+                                  passwordRepeatController.text) {
+                                register(
+                                    emailController.text,
+                                    first_nameController.text,
+                                    last_nameController.text,
+                                    passwordController.text);
 
-                         // Navigator.push(context, MaterialPageRoute(builder: (context) => Home() ));
-            
-
-                        },
-                      )),
-                 
-                
-
-
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()));
+                              } else {
+                                setState(() {
+                                  errorMessage = "Koderne matcher ikke";
+                                });
+                              }
+                            } else {
+                              setState(() {
+                                errorMessage = "Ikke alle felter er udfyldt";
+                              });
+                            }
+                          })),
                 ],
               ),
             )));
