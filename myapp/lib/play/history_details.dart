@@ -2,46 +2,26 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:myapp/util.dart';
-import "tournements.dart";
-import "dart:io";
+import "package:myapp/util.dart";
 
-class Tournement_Details extends StatefulWidget {
-  final String id;
-
-  const Tournement_Details({super.key, required this.id});
+class History_details extends StatefulWidget {
+  const History_details({super.key});
 
   @override
-  State<Tournement_Details> createState() => _Tournement_DetailsState();
+  State<History_details> createState() => _History_detailsState();
 }
 
-class _Tournement_DetailsState extends State<Tournement_Details> {
-  List tournement = [];
-  List players = [];
+List match = [];
 
-  bool showPlayers = false;
-
+class _History_detailsState extends State<History_details> {
   Future<void> fetchTournament() async {
     try {
       final response = await Dio().get(
           'https://simsvendapi-production.up.railway.app/tour/' + widget.id);
       setState(() {
-        tournement = response.data;
-
-        players = tournement[0]["Players"];
-
-        print("Player amount: " + players.length.toString());
-
-        print(players[0]);
+        match = response.data;
       });
     } catch (e) {}
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    fetchTournament();
   }
 
   @override
@@ -62,12 +42,12 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
             children: [
               SizedBox(
                 height: 1000,
-                child: tournement.isEmpty && players.isEmpty
+                child: match.isEmpty
                     ? Center(child: CircularProgressIndicator())
                     : ListView.builder(
-                        itemCount: tournement.length,
+                        itemCount: match.length,
                         itemBuilder: (context, index) {
-                          final data = tournement[index];
+                          final data = match[index];
 
                           data["date"] = dateConvert(data["date"]);
 
@@ -152,45 +132,6 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
                                     ),
                                   ],
                                 ),
-                                if (!showPlayers) ...[
-                                  ElevatedButton.icon(
-                                    icon: Icon(Icons.arrow_downward),
-                                    onPressed: () {
-                                      setState(() {
-                                        showPlayers = true;
-                                      });
-                                    },
-                                    label: Text("Se tilmeldte"),
-                                  ),
-                                ] else ...[
-                                  ElevatedButton.icon(
-                                    icon: Icon(Icons.arrow_upward),
-                                    onPressed: () {
-                                      setState(() {
-                                        showPlayers = false;
-                                      });
-                                    },
-                                    label: Text("Skjul tilmeldte"),
-                                  ),
-                                ],
-                                if (showPlayers) ...[
-                                  for (int i = 0;
-                                      i <= players.length - 1;
-                                      i++) ...[
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        (i + 1).toString() +
-                                            " " +
-                                            players[i]["userInfo"]
-                                                ["first_name"] +
-                                            " " +
-                                            players[i]["userInfo"]["last_name"],
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                    ),
-                                  ]
-                                ],
                               ]),
                             ],
                           );

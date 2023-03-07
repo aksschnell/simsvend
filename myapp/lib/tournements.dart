@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:dio/dio.dart';
 import 'package:myapp/tournmenet_details.dart';
+import "util.dart";
 
 class Tournements extends StatefulWidget {
   const Tournements({super.key});
@@ -22,9 +23,7 @@ class _TournementsState extends State<Tournements> {
         result = response.data;
 
         for (int i = 1; i <= result.length; i++) {
-          String date = response.data[0]["date"];
-          final splitted = date.split("T");
-          result[i - 1]["date"] = splitted[0];
+          result[i - 1]["date"] = dateConvert(response.data[0]["date"]);
         }
       });
     } catch (e) {

@@ -11,6 +11,7 @@ import 'package:http/http.dart';
 import 'package:myapp/play/casual.dart';
 import "my_globals.dart" as globals;
 import "login.dart";
+import "util.dart";
 
 class Profil extends StatefulWidget {
   const Profil({super.key});
@@ -21,7 +22,27 @@ class Profil extends StatefulWidget {
 
 double _fontsize = 22;
 
+Future<List<dynamic>> fetchHistory() async {
+  List result = [];
+
+  try {
+    final response = await Dio().get(
+        'https://simsvendapi-production.up.railway.app/match/' +
+            globals.user_id.toString());
+
+    result = response.data;
+  } catch (e) {
+    print(e);
+  }
+
+  print(result);
+  return result;
+}
+
 class _ProfilState extends State<Profil> {
+  late Future<List<dynamic>> match_future;
+  late Future<List<dynamic>> profil_future;
+
   Future<List<dynamic>> fetchProfil() async {
     List result = [];
 
@@ -51,8 +72,8 @@ class _ProfilState extends State<Profil> {
   void initState() {
     super.initState();
 
-    print(globals.user_id);
-    fetchProfil();
+    match_future = fetchHistory();
+    profil_future = fetchProfil();
   }
 
   @override
@@ -75,7 +96,7 @@ class _ProfilState extends State<Profil> {
                 SizedBox(
                   height: 150,
                   child: FutureBuilder<List<dynamic>>(
-                    future: fetchProfil(),
+                    future: profil_future,
                     builder: (BuildContext context,
                         AsyncSnapshot<List<dynamic>> snapshot) {
                       if (snapshot.hasData) {
@@ -123,67 +144,94 @@ class _ProfilState extends State<Profil> {
                     },
                   ),
                 ),
-                for (var i = 5; i >= 1; i--)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 180,
-                      width: 300,
-                      decoration: BoxDecoration(
-                          color: (() {
-                            if (i % 2 == 0)
-                              return Color.fromARGB(255, 196, 196, 196);
-                          })(),
-                          border: Border.all(
-                              width: 5, color: Color.fromARGB(255, 0, 0, 0)),
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              "Mikkel Kronborg",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "Lars Hansen",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "VS",
-                              style: TextStyle(fontSize: 10),
-                            ),
-                            Text(
-                              "Mikkel Kronborg",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "Lars Hansen",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "09-02-2022",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "2 - 1",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Text(
-                              "+15",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.green),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                SizedBox(
+                  child: FutureBuilder<List<dynamic>>(
+                    future: match_future,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<dynamic>> snapshot) {
+                      if (snapshot.hasData) {
+                        List<dynamic> data = snapshot.data!;
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final match = data[index];
+
+                            match['play_time'] =
+                                dateConvert(match['play_time']);
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 150,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    color: (() {
+                                      return Color.fromARGB(255, 196, 196, 196);
+                                    })(),
+                                    border: Border.all(
+                                        width: 5,
+                                        color: Color.fromARGB(255, 0, 0, 0)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "${match['User1']["first_name"] + " " + match['User1']["last_name"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "${match['User2']["first_name"] + " " + match['User2']["last_name"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "VS",
+                                        style: TextStyle(fontSize: 10),
+                                      ),
+                                      Text(
+                                        "${match['User3']["first_name"] + " " + match['User3']["last_name"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "${match['User4']["first_name"] + " " + match['User4']["last_name"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "${match['play_time']}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error loading data'),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
                   ),
+                ),
               ],
             ),
           ),
