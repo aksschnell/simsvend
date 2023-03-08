@@ -12,6 +12,7 @@ import 'package:myapp/play/casual.dart';
 import "my_globals.dart" as globals;
 import "login.dart";
 import "util.dart";
+import "history_details.dart";
 
 class Profil extends StatefulWidget {
   const Profil({super.key});
@@ -161,59 +162,70 @@ class _ProfilState extends State<Profil> {
                             match['play_time'] =
                                 dateConvert(match['play_time']);
 
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 150,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                    color: (() {
-                                      return Color.fromARGB(255, 196, 196, 196);
-                                    })(),
-                                    border: Border.all(
-                                        width: 5,
-                                        color: Color.fromARGB(255, 0, 0, 0)),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        "${match['User1']["first_name"] + " " + match['User1']["last_name"]}",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "${match['User2']["first_name"] + " " + match['User2']["last_name"]}",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "VS",
-                                        style: TextStyle(fontSize: 10),
-                                      ),
-                                      Text(
-                                        "${match['User3']["first_name"] + " " + match['User3']["last_name"]}",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "${match['User4']["first_name"] + " " + match['User4']["last_name"]}",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "${match['play_time']}",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => History_details(
+                                              id: '${match['ID']}',
+                                            )));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  height: 150,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      color: (() {
+                                        return Color.fromARGB(
+                                            255, 196, 196, 196);
+                                      })(),
+                                      border: Border.all(
+                                          width: 5,
+                                          color: Color.fromARGB(255, 0, 0, 0)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "${match['User1']["first_name"] + " " + match['User1']["last_name"]}",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "${match['User2']["first_name"] + " " + match['User2']["last_name"]}",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "VS",
+                                          style: TextStyle(fontSize: 10),
+                                        ),
+                                        Text(
+                                          "${match['User3']["first_name"] + " " + match['User3']["last_name"]}",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "${match['User4']["first_name"] + " " + match['User4']["last_name"]}",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "${match['play_time']}",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

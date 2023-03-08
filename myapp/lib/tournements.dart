@@ -68,33 +68,33 @@ class _TournementsState extends State<Tournements> {
                         itemBuilder: (BuildContext context, int index) {
                           final tours = data[index];
 
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              child: Column(children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 16),
-                                  child: Container(
-                                    height: 100,
-                                    width: 350,
-                                    decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 230, 230, 230),
-                                      borderRadius: BorderRadius.circular(16),
-                                      border: Border.all(
-                                        width: 5,
+                          return GestureDetector(
+                            onTap: () {
+                              print('${tours['ID']}');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Tournement_Details(
+                                            id: '${tours['ID']}',
+                                          )));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: Column(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 16),
+                                    child: Container(
+                                      height: 100,
+                                      width: 350,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 230, 230, 230),
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                          width: 5,
+                                        ),
                                       ),
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        print('${tours['ID']}');
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Tournement_Details(
-                                                      id: '${tours['ID']}',
-                                                    )));
-                                      },
                                       child: Stack(
                                         children: <Widget>[
                                           Positioned(
@@ -161,8 +161,8 @@ class _TournementsState extends State<Tournements> {
                                       ),
                                     ),
                                   ),
-                                ),
-                              ]),
+                                ]),
+                              ),
                             ),
                           );
                         },

@@ -2,9 +2,30 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:myapp/login.dart';
 import 'package:myapp/util.dart';
 import "tournements.dart";
 import "dart:io";
+import 'dart:convert';
+import "my_globals.dart" as globals;
+
+final dio = Dio();
+
+void join(String tour_id) async {
+  try {
+    var params = {"user_id": globals.user_id, "tour_id": int.parse(tour_id)};
+    print(params);
+    final response = await dio.post(
+      'https://simsvendapi-production.up.railway.app/tour/join',
+      options: Options(headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      }),
+      data: jsonEncode(params),
+    );
+  } on DioError catch (e) {
+    print(e.message);
+  }
+}
 
 class Tournement_Details extends StatefulWidget {
   final String id;
@@ -21,6 +42,8 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
 
   bool showPlayers = false;
 
+  bool joinable = true;
+
   Future<void> fetchTournament() async {
     try {
       final response = await Dio().get(
@@ -30,9 +53,12 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
 
         players = tournement[0]["Players"];
 
-        print("Player amount: " + players.length.toString());
-
-        print(players[0]);
+        for (int i = 0; i < players.length; i++) {
+          if (players[i]["userInfo"]["ID"] == globals.user_id) {
+            joinable = false;
+            print(joinable);
+          }
+        }
       });
     } catch (e) {}
   }
@@ -152,12 +178,28 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
                                     ),
                                   ],
                                 ),
+                                if (joinable) ...[
+                                  ElevatedButton.icon(
+                                    icon: Icon(Icons.sports_tennis),
+                                    onPressed: () {
+                                      setState(() {
+                                        join("${data['ID']}");
+
+                                        joinable = false;
+                                      });
+                                    },
+                                    label: Text("Tilmeld turnering"),
+                                  ),
+                                ],
                                 if (!showPlayers) ...[
                                   ElevatedButton.icon(
                                     icon: Icon(Icons.arrow_downward),
                                     onPressed: () {
                                       setState(() {
                                         showPlayers = true;
+                                        Future.delayed(
+                                            const Duration(milliseconds: 1000));
+                                        fetchTournament();
                                       });
                                     },
                                     label: Text("Se tilmeldte"),

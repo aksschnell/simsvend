@@ -15,7 +15,7 @@ void post(String email, String password, context) async {
   try {
     var params = {"email": email, "password": password};
     final response = await dio.post(
-      'https://simsvendapi-production.up.railway.app/user/login',
+      'https://simsvendapi-production.up.railway.app/auth/login',
       options: Options(headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       }),
@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextField(
                       controller: emailController
-                        ..text = 't.kronborg6@gmail.com',
+                        ..text = 'allanandersen6996@gmail.com',
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
