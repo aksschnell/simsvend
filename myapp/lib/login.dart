@@ -22,7 +22,8 @@ void post(String email, String password, context) async {
       data: jsonEncode(params),
     );
 
-    globals.user_id = response.data[0]["ID"];
+    globals.token = response.data["token"];
+    globals.user_id = response.data["user"][0]["ID"];
 
     Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   } on DioError catch (e) {

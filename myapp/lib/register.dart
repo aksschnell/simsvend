@@ -11,8 +11,8 @@ final dio = Dio();
 
 String errorMessage = "";
 
-Future<dynamic> register(
-    String email, String first_name, String last_name, String password) async {
+void register(String email, String first_name, String last_name,
+    String password, context) async {
   dynamic result;
 
   try {
@@ -23,19 +23,19 @@ Future<dynamic> register(
       "password": password
     };
     final response = await dio.post(
-      'https://simsvendapi-production.up.railway.app/user/',
+      'https://simsvendapi-production.up.railway.app/auth/register/',
       options: Options(headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       }),
       data: jsonEncode(params),
     );
 
-    print(response.data["ID"]);
+    globals.token = response.data["token"];
+    globals.user_id = response.data["user"]["ID"];
 
-    globals.user_id = response.data["ID"];
-    return response.data["ID"];
+    print(globals.user_id);
 
-    //Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   } on DioError catch (e) {
     print(e.message);
     errorMessage = await "Fejl";
@@ -167,12 +167,8 @@ class _RegisterState extends State<Register> {
                                     emailController.text,
                                     first_nameController.text,
                                     last_nameController.text,
-                                    passwordController.text);
-
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Home()));
+                                    passwordController.text,
+                                    context);
                               } else {
                                 setState(() {
                                   errorMessage = "Koderne matcher ikke";

@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import "package:myapp/util.dart";
+import "my_globals.dart" as globals;
 
 class History_details extends StatefulWidget {
   final String id;
@@ -14,12 +17,18 @@ class History_details extends StatefulWidget {
 
 List match = [];
 
+final String token = globals.token;
+
 class _History_detailsState extends State<History_details> {
   Future<void> fetchMatch() async {
     try {
       final response = await Dio().get(
-          'https://simsvendapi-production.up.railway.app/match/game/' +
-              widget.id);
+        'https://simsvendapi-production.up.railway.app/match/game/' + widget.id,
+        options: Options(headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          "Authorization": "Bearer $token",
+        }),
+      );
       setState(() {
         print(response.data);
         match = response.data;

@@ -22,14 +22,20 @@ class Profil extends StatefulWidget {
 }
 
 double _fontsize = 22;
+final String token = globals.token;
 
 Future<List<dynamic>> fetchHistory() async {
   List result = [];
 
   try {
     final response = await Dio().get(
-        'https://simsvendapi-production.up.railway.app/match/' +
-            globals.user_id.toString());
+      'https://simsvendapi-production.up.railway.app/match/' +
+          globals.user_id.toString(),
+      options: Options(headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+        "Authorization": "Bearer $token",
+      }),
+    );
 
     result = response.data;
   } catch (e) {
@@ -50,7 +56,11 @@ class _ProfilState extends State<Profil> {
     try {
       final response = await Dio().get(
           'https://simsvendapi-production.up.railway.app/user/token/' +
-              globals.user_id.toString());
+              globals.user_id.toString(),
+          options: Options(headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+            "Authorization": "Bearer $token",
+          }));
 
       setState(() {
         result = response.data;
@@ -75,6 +85,7 @@ class _ProfilState extends State<Profil> {
 
     match_future = fetchHistory();
     profil_future = fetchProfil();
+    print(globals.token);
   }
 
   @override

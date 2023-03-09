@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:dio/dio.dart';
 import 'package:myapp/tournmenet_details.dart';
 import "util.dart";
+import "my_globals.dart" as globals;
 
 class Tournements extends StatefulWidget {
   const Tournements({super.key});
@@ -12,12 +15,19 @@ class Tournements extends StatefulWidget {
   State<Tournements> createState() => _TournementsState();
 }
 
+final String token = globals.token;
+
 class _TournementsState extends State<Tournements> {
   Future<List<dynamic>> fetchTours() async {
     List result = [];
     try {
-      final response =
-          await Dio().get('https://simsvendapi-production.up.railway.app/tour');
+      final response = await Dio().get(
+        'https://simsvendapi-production.up.railway.app/tour',
+        options: Options(headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          "Authorization": "Bearer $token",
+        }),
+      );
 
       setState(() {
         result = response.data;

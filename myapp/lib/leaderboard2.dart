@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import "my_globals.dart" as globals;
 
 class LeaderboardWidget extends StatefulWidget {
   const LeaderboardWidget({super.key});
@@ -8,6 +10,8 @@ class LeaderboardWidget extends StatefulWidget {
   @override
   _LeaderboardWidgetState createState() => _LeaderboardWidgetState();
 }
+
+final String token = globals.token;
 
 class _LeaderboardWidgetState extends State<LeaderboardWidget> {
   List _leaderboardData = [];
@@ -17,7 +21,12 @@ class _LeaderboardWidgetState extends State<LeaderboardWidget> {
   Future<void> _fetchLeaderboardData() async {
     try {
       final response = await Dio().get(
-          'https://simsvendapi-production.up.railway.app/user/leaderboard');
+        'https://simsvendapi-production.up.railway.app/user/leaderboard',
+        options: Options(headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          "Authorization": "Bearer $token",
+        }),
+      );
       setState(() {
         _leaderboardData = response.data;
 

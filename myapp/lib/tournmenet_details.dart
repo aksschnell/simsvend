@@ -11,6 +11,8 @@ import "my_globals.dart" as globals;
 
 final dio = Dio();
 
+final String token = globals.token;
+
 void join(String tour_id) async {
   try {
     var params = {"user_id": globals.user_id, "tour_id": int.parse(tour_id)};
@@ -19,6 +21,7 @@ void join(String tour_id) async {
       'https://simsvendapi-production.up.railway.app/tour/join',
       options: Options(headers: {
         HttpHeaders.contentTypeHeader: "application/json",
+        "Authorization": "Bearer $token",
       }),
       data: jsonEncode(params),
     );
@@ -47,7 +50,12 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
   Future<void> fetchTournament() async {
     try {
       final response = await Dio().get(
-          'https://simsvendapi-production.up.railway.app/tour/' + widget.id);
+        'https://simsvendapi-production.up.railway.app/tour/' + widget.id,
+        options: Options(headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          "Authorization": "Bearer $token",
+        }),
+      );
       setState(() {
         tournement = response.data;
 
