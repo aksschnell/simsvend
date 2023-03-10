@@ -40,20 +40,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Tournements(),
     Play(),
     LeaderboardWidget(),
-    Scaffold(
-      body: Profil(),
-    ),
+    Profil(),    
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      /*
-      if (_selectedIndex == 1) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Login()));
-      }
-    */
+     
     });
   }
 
