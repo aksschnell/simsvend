@@ -29,8 +29,6 @@ class _LeaderboardWidgetState extends State<LeaderboardWidget> {
       );
       setState(() {
         _leaderboardData = response.data;
-
-        print(_leaderboardData);
       });
     } catch (e) {
       print(e);

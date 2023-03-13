@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'dart:ui';
 import "dart:io";
+import "my_globals.dart" as globals;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final String token = globals.token;
   List top3elo = [];
   List top3eloresult = [];
 
@@ -22,7 +24,12 @@ class _HomePageState extends State<HomePage> {
   Future<void> fetchTop3Elo() async {
     try {
       final response = await Dio().get(
-          'https://simsvendapi-production.up.railway.app/user/leaderboard');
+        'https://simsvendapi-production.up.railway.app/user/leaderboard',
+        options: Options(headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          "Authorization": "Bearer $token",
+        }),
+      );
       setState(() {
         top3elo = response.data;
 
@@ -39,7 +46,12 @@ class _HomePageState extends State<HomePage> {
   Future<void> fetchTop3Points() async {
     try {
       final response = await Dio().get(
-          'https://simsvendapi-production.up.railway.app/user/leaderboard');
+        'https://simsvendapi-production.up.railway.app/user/leaderboard',
+        options: Options(headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          "Authorization": "Bearer $token",
+        }),
+      );
       setState(() {
         top3points = response.data;
 
