@@ -6,6 +6,7 @@ import "dart:io";
 import 'dart:convert';
 import "home.dart";
 import "my_globals.dart" as globals;
+import "login.dart";
 
 final dio = Dio();
 
@@ -70,6 +71,12 @@ class _RegisterState extends State<Register> {
         home: Scaffold(
             resizeToAvoidBottomInset: true,
             appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
               title: Text('Registrer'),
             ),
             body: SingleChildScrollView(

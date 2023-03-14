@@ -121,7 +121,7 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     "Pricepool: " +
-                                        '${data['Tour']["PricePool"]}',
+                                        '${data['Tour']["price_pool"]}',
                                     style: TextStyle(fontSize: 22),
                                   ),
                                 ),
@@ -152,6 +152,34 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
                                     children: [
                                       Text(
                                         "Tilmeldte: " + '${data["how_many"]}',
+                                        style: TextStyle(fontSize: 22),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Beskrivelse:",
+                                        style: TextStyle(fontSize: 22),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '${data["Tour"]["dec"]}',
                                         style: TextStyle(fontSize: 22),
                                       ),
                                     ],

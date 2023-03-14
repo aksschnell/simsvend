@@ -5,6 +5,7 @@ import 'package:myapp/profil.dart';
 import 'package:myapp/register.dart';
 import "home.dart";
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import "my_globals.dart" as globals;
 
 String errorMessage = "";
@@ -24,6 +25,8 @@ void post(String email, String password, context) async {
 
     globals.token = response.data["token"];
     globals.user_id = response.data["user"][0]["ID"];
+
+    print(globals.token);
 
     Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   } on DioError catch (e) {

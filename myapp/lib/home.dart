@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:flutter/services.dart";
 
 import "login.dart";
 import "profil.dart";
@@ -7,6 +8,7 @@ import "home_page.dart";
 import "tournements.dart";
 import "play/play.dart";
 import "leaderboard2.dart";
+import 'package:vibration/vibration.dart';
 
 void main() => runApp(const Home());
 
@@ -40,13 +42,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Tournements(),
     Play(),
     LeaderboardWidget(),
-    Profil(),    
+    Profil(),
   ];
 
   void _onItemTapped(int index) {
+    HapticFeedback.heavyImpact();
+
     setState(() {
       _selectedIndex = index;
-     
     });
   }
 

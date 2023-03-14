@@ -1,15 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:myapp/play/opponent.dart';
 import "court.dart";
 import "date.dart";
+import "package:myapp/my_globals.dart" as globals;
+import "dart:io";
 
-const List<String> list = <String>[
-  'Mikkel Kronborg',
-  'Jakob Johansen',
-  'Oliver Mathiesen'
-];
+List<String> list = globals.friends;
 
 class Teammateselecter extends StatefulWidget {
   final String gamemode;
@@ -27,7 +26,7 @@ class Teammateselecter extends StatefulWidget {
 }
 
 class _TeammateselecterState extends State<Teammateselecter> {
-  String match_players = "";
+  String match_players = list.first;
   void initState() {
     match_players = "randoms";
 
