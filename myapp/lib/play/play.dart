@@ -9,6 +9,7 @@ import "singleordouble.dart";
 import "../home.dart";
 import "package:myapp/my_globals.dart" as globals;
 import 'package:dio/dio.dart';
+import "package:myapp/util.dart";
 
 class Play extends StatefulWidget {
   const Play({super.key});
@@ -18,42 +19,10 @@ class Play extends StatefulWidget {
 }
 
 class _PlayState extends State<Play> {
-  Future<List<dynamic>> fetchFriends() async {
-    List result = [];
-    final String token = globals.token;
-
-    try {
-      final response = await Dio().get(
-          'https://simsvendapi-production.up.railway.app/friends/' +
-              1.toString(),
-          options: Options(headers: {
-            HttpHeaders.contentTypeHeader: "application/json",
-            "Authorization": "Bearer $token",
-          }));
-
-      result = response.data;
-
-      list.clear();
-      for (int i = 0; i < result.length; i++) {
-        String first_name = (result[i]["Friend"]["userInfo"]["first_name"]);
-        String last_name = (result[i]["Friend"]["userInfo"]["last_name"]);
-
-        globals.friends.clear();
-
-        globals.friends.add("value");
-      }
-      ;
-    } catch (e) {
-      print(e);
-    }
-    return result;
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    fetchFriends();
   }
 
   @override

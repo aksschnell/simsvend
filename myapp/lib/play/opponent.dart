@@ -4,12 +4,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:myapp/play/teammateselecter.dart';
 import "court.dart";
 import "date.dart";
+import "package:myapp/my_globals.dart" as globals;
 
-const List<String> list = <String>[
-  'Mikkel Kronborg',
-  'Jakob Johansen',
-  'Oliver Mathiesen'
-];
+List<String> list = <String>["."];
 
 class opponentselecter extends StatefulWidget {
   final String gamemode;
@@ -30,14 +27,26 @@ class opponentselecter extends StatefulWidget {
 
 class _opponentselecterState extends State<opponentselecter> {
   @override
-  String dropdownValue = list.first;
-  String match_players = "random";
-
   void initState() {
     match_players = "randoms";
 
+    list.clear();
+
+    print("hej" + widget.teammate);
+    for (int i = 0; i < globals.friends.length; i++) {
+      if (globals.friends[i] != widget.teammate) {
+        list.add(globals.friends[i]);
+      } else {
+        list.add(".");
+      }
+    }
+
     super.initState();
   }
+
+  String dropdownValue = list.first;
+  String dropDownValue2 = list.first;
+  String match_players = "random";
 
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -190,7 +199,7 @@ class _opponentselecterState extends State<opponentselecter> {
                     }).toList(),
                   ),
                   DropdownButton<String>(
-                    value: dropdownValue,
+                    value: dropDownValue2,
                     icon: const Icon(Icons.arrow_downward),
                     elevation: 16,
                     style: const TextStyle(color: Colors.deepPurple),
@@ -201,7 +210,7 @@ class _opponentselecterState extends State<opponentselecter> {
                     onChanged: (String? value) {
                       // This is called when the user selects an item.
                       setState(() {
-                        dropdownValue = value!;
+                        dropDownValue2 = value!;
                       });
                     },
                     items: list.map<DropdownMenuItem<String>>((String value) {
@@ -228,12 +237,12 @@ class _opponentselecterState extends State<opponentselecter> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Date(
-                                    teammate: dropdownValue,
+                                    teammate: widget.teammate,
                                     single_or_double: widget.single_or_double,
                                     gamemode: widget.gamemode,
                                     court: widget.court,
                                     op1: dropdownValue,
-                                    op2: dropdownValue,
+                                    op2: dropDownValue2,
                                   )));
                     },
                   ),

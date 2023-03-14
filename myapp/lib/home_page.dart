@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:myapp/util.dart';
 import 'dart:ui';
 import "dart:io";
 import "my_globals.dart" as globals;
@@ -72,6 +73,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     fetchTop3Elo();
     fetchTop3Points();
+    fetchFriends();
   }
 
   @override

@@ -8,7 +8,7 @@ import "date.dart";
 import "package:myapp/my_globals.dart" as globals;
 import "dart:io";
 
-List<String> list = globals.friends;
+List<String> list = ["."];
 
 class Teammateselecter extends StatefulWidget {
   final String gamemode;
@@ -29,6 +29,14 @@ class _TeammateselecterState extends State<Teammateselecter> {
   String match_players = list.first;
   void initState() {
     match_players = "randoms";
+
+    list.clear();
+
+    for (int i = 0; i < globals.friends.length; i++) {
+      print(globals.friends[i]);
+
+      list.add(globals.friends[i]);
+    }
 
     super.initState();
   }
