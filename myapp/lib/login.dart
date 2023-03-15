@@ -121,11 +121,6 @@ class _LoginState extends State<Login> {
                         ),
                         child: const Text('Log In'),
                         onPressed: () {
-                          /*
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home()));
-  */
-
                           post(emailController.text, passwordController.text,
                               context);
 

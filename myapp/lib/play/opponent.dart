@@ -45,7 +45,9 @@ class _opponentselecterState extends State<opponentselecter> {
   }
 
   String dropdownValue = list.first;
+
   String dropDownValue2 = list.first;
+
   String match_players = "random";
 
   Widget build(BuildContext context) {
@@ -136,16 +138,20 @@ class _opponentselecterState extends State<opponentselecter> {
                           });
                         },
                       ),
-                      RadioListTile(
-                        title: Text("Egen venner"),
-                        value: "friends",
-                        groupValue: match_players,
-                        onChanged: (value) {
-                          setState(() {
-                            match_players = value.toString();
-                          });
-                        },
-                      ),
+                      if (globals.friends.length >= 3) ...[
+                        RadioListTile(
+                          title: Text("Egen venner"),
+                          value: "friends",
+                          groupValue: match_players,
+                          onChanged: (value) {
+                            setState(() {
+                              match_players = value.toString();
+                            });
+                          },
+                        ),
+                      ],
+                      if (globals.friends.length < 3)
+                        Text("Ikke nok venner til double")
                     ],
                   ),
                 ),

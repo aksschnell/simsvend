@@ -32,7 +32,8 @@ Future<List<dynamic>> fetchFriends() async {
 
   try {
     final response = await Dio().get(
-        'https://simsvendapi-production.up.railway.app/friends/' + 1.toString(),
+        'https://simsvendapi-production.up.railway.app/friends/' +
+            globals.user_id.toString(),
         options: Options(headers: {
           HttpHeaders.contentTypeHeader: "application/json",
           "Authorization": "Bearer $token",

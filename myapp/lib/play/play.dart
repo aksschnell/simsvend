@@ -23,6 +23,7 @@ class _PlayState extends State<Play> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(globals.friends);
   }
 
   @override

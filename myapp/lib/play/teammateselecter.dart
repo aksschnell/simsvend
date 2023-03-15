@@ -37,6 +37,8 @@ class _TeammateselecterState extends State<Teammateselecter> {
 
       list.add(globals.friends[i]);
     }
+    print("LORT");
+    print(list);
 
     super.initState();
   }
