@@ -151,7 +151,7 @@ class _Tournement_DetailsState extends State<Tournement_Details> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Tilmeldte: " + '${data["how_many"]}',
+                                        "Pladser: " + '${data["how_many"]}',
                                         style: TextStyle(fontSize: 22),
                                       ),
                                     ],

@@ -17,9 +17,7 @@ class Singleordouble extends StatefulWidget {
 class _SingleordoubleState extends State<Singleordouble> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-
-      
+    return MaterialApp(      
       title: "Play",
       home: Scaffold(
         appBar: AppBar(

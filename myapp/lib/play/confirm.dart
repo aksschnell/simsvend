@@ -30,6 +30,14 @@ class Confirm extends StatefulWidget {
 
 class _ConfirmState extends State<Confirm> {
   @override
+  void initState() {
+    // TODO: implement initState
+    print(widget.gamemode);
+    print(widget.op2);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -58,9 +66,14 @@ class _ConfirmState extends State<Confirm> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Gamemode: " + widget.gamemode),
-                Text("Holdkammerat: " + widget.teammate),
-                Text("Modstander 1: " + widget.op1),
-                Text("Modstander 2: " + widget.op2),
+                if (widget.single_or_double == "Double") ...[
+                  Text("Holdkammerat: " + widget.teammate),
+                  Text("Modstander 1: " + widget.op1),
+                  Text("Modstander 2: " + widget.op2),
+                ],
+                if (widget.single_or_double == "Single") ...[
+                  Text("Modstander 1: " + widget.op1),
+                ],
                 Text("Bane: " + widget.court),
                 Text("Dato: " + widget.date),
                 ElevatedButton(

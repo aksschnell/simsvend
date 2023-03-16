@@ -26,6 +26,9 @@ class opponentselecter extends StatefulWidget {
 }
 
 class _opponentselecterState extends State<opponentselecter> {
+  String dropdownValue = "";
+  String dropDownValue2 = "";
+
   @override
   void initState() {
     match_players = "randoms";
@@ -36,17 +39,16 @@ class _opponentselecterState extends State<opponentselecter> {
     for (int i = 0; i < globals.friends.length; i++) {
       if (globals.friends[i] != widget.teammate) {
         list.add(globals.friends[i]);
-      } else {
-        list.add(".");
       }
     }
 
+    setState(() {
+      dropdownValue = list.first;
+      dropDownValue2 = list.first;
+    });
+
     super.initState();
   }
-
-  String dropdownValue = list.first;
-
-  String dropDownValue2 = list.first;
 
   String match_players = "random";
 

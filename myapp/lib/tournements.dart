@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:dio/dio.dart';
 import 'package:myapp/tournmenet_details.dart';
 import "util.dart";
@@ -137,9 +136,20 @@ class _TournementsState extends State<Tournements> {
                                               child: Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              '${tours['date']}',
+                                              '${tours['name']}',
                                             ),
                                           )),
+                                          Positioned(
+                                            right: 132,
+                                            bottom: 0,
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  '${tours['date']}',
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                           Positioned(
                                             bottom: 5,
                                             left: 5,

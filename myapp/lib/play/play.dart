@@ -1,15 +1,9 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:myapp/play/court.dart';
 import "singleordouble.dart";
 import "../home.dart";
 import "package:myapp/my_globals.dart" as globals;
-import 'package:dio/dio.dart';
-import "package:myapp/util.dart";
 
 class Play extends StatefulWidget {
   const Play({super.key});

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:myapp/history_details.dart';
 import 'package:myapp/play/opponent.dart';
 import "court.dart";
 import "date.dart";
@@ -9,6 +10,8 @@ import "package:myapp/my_globals.dart" as globals;
 import "dart:io";
 
 List<String> list = ["."];
+
+String teammate = "";
 
 class Teammateselecter extends StatefulWidget {
   final String gamemode;
@@ -27,6 +30,7 @@ class Teammateselecter extends StatefulWidget {
 
 class _TeammateselecterState extends State<Teammateselecter> {
   String match_players = list.first;
+  String dropdownValue = list.first;
   void initState() {
     match_players = "randoms";
 
@@ -37,13 +41,12 @@ class _TeammateselecterState extends State<Teammateselecter> {
 
       list.add(globals.friends[i]);
     }
-    print("LORT");
-    print(list);
+
+    setState(() {});
 
     super.initState();
   }
 
-  String dropdownValue = list.first;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -135,7 +138,19 @@ class _TeammateselecterState extends State<Teammateselecter> {
                       style: TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
-                      if (widget.gamemode == "Casual") {
+                      if (widget.gamemode == "Casual" &&
+                          match_players == "randoms") {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => opponentselecter(
+                                      teammate: "Random",
+                                      single_or_double: widget.single_or_double,
+                                      gamemode: widget.gamemode,
+                                      court: widget.court,
+                                    )));
+                      } else if (widget.gamemode == "Casual" &&
+                          match_players == "friends") {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -145,7 +160,21 @@ class _TeammateselecterState extends State<Teammateselecter> {
                                       gamemode: widget.gamemode,
                                       court: widget.court,
                                     )));
-                      } else if (widget.gamemode == "Competitive") {
+                      } else if (widget.gamemode == "Competitive" &&
+                          match_players == "randoms") {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Date(
+                                      teammate: "Random",
+                                      single_or_double: widget.single_or_double,
+                                      gamemode: widget.gamemode,
+                                      court: widget.court,
+                                      op1: "None",
+                                      op2: "None",
+                                    )));
+                      } else if (widget.gamemode == "Competitive" &&
+                          match_players == "friends") {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
